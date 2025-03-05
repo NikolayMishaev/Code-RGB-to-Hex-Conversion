@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 
 /* 
 
@@ -19,3 +19,19 @@
 привести к строке
 
 */
+
+const rgb = (...arr) => {
+
+  const setMinMax = (num) => {
+    if (num < 0) return 0;
+    if (num > 255) return 255;
+    return num;
+  };
+
+  console.log(setMinMax(-15));
+  console.log(setMinMax(50));
+  console.log(setMinMax(354));
+  
+};
+
+rgb();
