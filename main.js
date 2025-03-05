@@ -28,10 +28,28 @@ const rgb = (...arr) => {
     return num;
   };
 
-  console.log(setMinMax(-15));
-  console.log(setMinMax(50));
-  console.log(setMinMax(354));
-  
+  const convertToHex = (num) => {
+    if (Math.floor(num / 16) === 0) {
+      stack.push(num);
+    } else {
+      stack.push(Math.floor(num % 16));
+      convertToHex(Math.floor(num / 16))
+    }
+  };
+
+
+  const stack = []
+  console.log(convertToHex(62))
+  console.log(stack)
+  const numbers = arr.map( el => {
+
+    setMinMax(el) 
+    convertToHex(el)
+
+  })
+
 };
 
-rgb();
+rgb(154, 15, 177);
+
+// console.log(Math.floor(5 / 16) === 0)
