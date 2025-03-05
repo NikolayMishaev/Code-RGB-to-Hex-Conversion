@@ -21,25 +21,26 @@
 */
 
 const rgb = (...arr) => {
-  return arr.map((el) => {
-    let stack = [];
+  return arr
+    .map((el) => {
+      let stack = [];
 
-    const setMinMax = (num) => {
-      if (num < 0) return 0;
-      if (num > 255) return 255;
-      return num;
-    };
+      const setMinMax = (num) => {
+        if (num < 0) return 0;
+        if (num > 255) return 255;
+        return num;
+      };
 
-    const convertToHex = (num) => {
-      if (Math.floor(num / 16) === 0) {
-        stack.push(num);
-      } else {
-        stack.push(num % 16);
-        convertToHex(Math.floor(num / 16));
-      }
-    };
+      const convertToHex = (num) => {
+        if (Math.floor(num / 16) === 0) {
+          stack.push(num);
+        } else {
+          stack.push(num % 16);
+          convertToHex(Math.floor(num / 16));
+        }
+      };
 
-    const pattern = {
+      const pattern = {
         10: "A",
         11: "B",
         12: "C",
@@ -48,16 +49,16 @@ const rgb = (...arr) => {
         15: "F",
       };
 
-    setMinMax(el);
-    convertToHex(el);
+      setMinMax(el);
+      convertToHex(el);
 
-    stack = stack.reverse().map((el) => {
+      stack = stack.reverse().map((el) => {
         return pattern[el] ? pattern[el] : el;
       });
 
-      console.log(stack)
-      
-  });
+      return stack.join("");
+    })
+    .join("");
 };
 
 console.log(rgb(32, 62, 79));
