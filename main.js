@@ -67,17 +67,12 @@ const rgb = (...arr) => {
     stack = stack.reverse().map((el) => {
       return pattern[el] ? pattern[el] : el;
     });
-    console.log('значения после замены на символы: ',stack)
 
     return doubleValue(stack.join(""));
   });
-  console.log('массив результата: ', result)
+
   return result.join("");
 };
 
-console.log('значения в 10 СС: ',0x20, 0x0, 0xFF)
-
-console.log('результат: ',rgb(32, -62, 550));
-console.log('результат: ',rgb(15, 4, 550));
-
-// console.log(Math.floor(5 / 16) === 0)
+console.log(rgb(32, -62, 550));
+console.log(rgb(15, 4, 550));
