@@ -18,49 +18,66 @@
 заменить числа от 10 до 15 на A - F
 привести к строке
 
+bugfix:
+исправить ошибку выходных данных:
+если на выходе число однозначное, то по условию задачи мы должны его дублировать
+пример: F -> FF ; 0 -> 00
+
 */
 
 const rgb = (...arr) => {
-  return arr
-    .map((el) => {
-      let stack = [];
+  const setMinMax = (num) => {
+    if (num < 0) return 0;
+    if (num > 255) return 255;
+    return num;
+  };
 
-      const setMinMax = (num) => {
-        if (num < 0) return 0;
-        if (num > 255) return 255;
-        return num;
-      };
+  const result = arr.map((el) => {
+    let correctValue = setMinMax(el);
+    let stack = [];
 
-      const convertToHex = (num) => {
-        if (Math.floor(num / 16) === 0) {
-          stack.push(num);
-        } else {
-          stack.push(num % 16);
-          convertToHex(Math.floor(num / 16));
-        }
-      };
+    const convertToHex = (num) => {
+      if (Math.floor(num / 16) === 0) {
+        stack.push(num);
+      } else {
+        stack.push(num % 16);
+        convertToHex(Math.floor(num / 16));
+      }
+    };
 
-      const pattern = {
-        10: "A",
-        11: "B",
-        12: "C",
-        13: "D",
-        14: "E",
-        15: "F",
-      };
+    const doubleValue = (value) => {
+      if (!isNaN(value) && value < 10) {
+        return 0 + value;
+      } else if (isNaN(value) && String(value).length === 1) {
+        return 0 + value;
+      } else return value;
+    };
 
-      setMinMax(el);
-      convertToHex(el);
+    const pattern = {
+      10: "A",
+      11: "B",
+      12: "C",
+      13: "D",
+      14: "E",
+      15: "F",
+    };
 
-      stack = stack.reverse().map((el) => {
-        return pattern[el] ? pattern[el] : el;
-      });
+    convertToHex(correctValue);
 
-      return stack.join("");
-    })
-    .join("");
+    stack = stack.reverse().map((el) => {
+      return pattern[el] ? pattern[el] : el;
+    });
+    console.log('значения после замены на символы: ',stack)
+
+    return doubleValue(stack.join(""));
+  });
+  console.log('массив результата: ', result)
+  return result.join("");
 };
 
-console.log(rgb(32, 62, 79));
+console.log('значения в 10 СС: ',0x20, 0x0, 0xFF)
+
+console.log('результат: ',rgb(32, -62, 550));
+console.log('результат: ',rgb(15, 4, 550));
 
 // console.log(Math.floor(5 / 16) === 0)
